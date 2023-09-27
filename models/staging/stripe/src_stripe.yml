@@ -2,10 +2,12 @@ version: 2
 
 sources:
   - name: stripe
+    description: clone of stripe payment database
     database: raw
     schema: stripe
     tables:
       - name: payment
+        description: payment records from stripe
         loaded_at_field: _batched_at # exisiting field at source
         freshness: 
           warn_after:
