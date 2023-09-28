@@ -103,3 +103,45 @@ commit;
 
 
 select * from analytics.dbt_nreyes.mock_orders;
+
+
+-- snapshot demo prod env
+create or replace transient table analytics.dbt_prod.mock_orders (
+    order_id integer,
+    status varchar (100),
+    created_at date,
+    updated_at date
+);
+
+
+insert into analytics.dbt_prod.mock_orders (order_id, status, created_at, updated_at)
+values
+    (1, 'Delivered', '2020-01-01', '2020-01-04'),
+    (2, 'Shipped', '2020-01-02', '2020-01-04'),
+    (3, 'Shipped', '2020-01-03', '2020-01-04'),
+    (4, 'Processed', '2020-01-04', '2020-01-04');
+commit;
+
+
+select * from analytics.dbt_prod.mock_orders;
+
+
+-- recreate demo table and insert new records
+create or replace transient table analytics.dbt_prod.mock_orders (
+    order_id integer,
+    status varchar (100),
+    created_at date,
+    updated_at date
+);
+
+
+insert into analytics.dbt_prod.mock_orders (order_id, status, created_at, updated_at)
+values 
+    (1, 'delivered', '2020-01-01', '2020-01-05'),
+    (2, 'delivered', '2020-01-02', '2020-01-05'),
+    (3, 'delivered', '2020-01-03', '2020-01-05'),
+    (4, 'delivered', '2020-01-04', '2020-01-05');
+commit;
+
+
+select * from analytics.dbt_prod.mock_orders;
