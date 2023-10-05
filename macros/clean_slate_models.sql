@@ -3,10 +3,10 @@
     {% set get_drop_commands_query %}
         select
             case 
-                when table_type = 'view' then table_type
-                else 'table'
+                when table_type = upper('view') then table_type
+                else upper('table')
             end as drop_type, 
-            'drop ' || drop_type || ' {{ database | upper }}.' || table_schema || '.' || table_name || ';'
+            upper('drop ') || drop_type || ' {{ database | upper }}.' || table_schema || '.' || table_name || ';'
         from {{ database }}.information_schema.tables 
         where table_schema = upper('{{ schema }}')
         and last_altered <= current_date - {{ days }} 

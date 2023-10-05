@@ -145,3 +145,17 @@ commit;
 
 
 select * from analytics.dbt_prod.mock_orders;
+
+
+----------------------------------------------------------------------------------------------------
+-- stale models
+select
+    last_altered,
+    table_type,
+    table_schema,
+    table_name,
+    case when table_type = upper('view') then table_type else upper('table') end as drop_type,
+    upper('drop ') || drop_type || ' {{ database | upper }}.' || table_schema || '.' || table_name || ';' as drop_statement
+from {{ database }}.information_schema.tables 
+where table_schema = upper('{{ schema }}')
+order by last_altered desc; 
