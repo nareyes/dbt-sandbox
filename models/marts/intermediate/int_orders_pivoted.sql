@@ -35,7 +35,7 @@ pivoted as (
         {{ method_sums | join(',\n      ') }}
         
     from payments
-    where status = 'success'
+    where payment_status = 'success'
     group by order_id
 )
 
