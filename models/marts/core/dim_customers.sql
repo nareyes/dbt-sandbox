@@ -19,6 +19,11 @@ orders as (
 
 ),
 
+employees as (
+
+    select * from {{ ref('dim_employees') }}
+),
+
 customer_orders as (
 
     select
@@ -39,6 +44,7 @@ final as (
         c.customer_id,
         c.first_name,
         c.last_name,
+        e.employee_id is not null as is_employee,
         o.first_order_date,
         o.most_recent_order_date,
         coalesce (o.number_of_orders, 0) as number_of_orders,
@@ -46,6 +52,7 @@ final as (
 
     from customers as c
         left join customer_orders as o using (customer_id)
+        left join employees as e using (customer_id)
 
 )
 
