@@ -7,11 +7,6 @@
         a_relation = old_etl_relation,
         b_relation = dbt_relation,
         primary_key = "order_id",
-        summarize = false,
-        excluse_columns = [
-            'full_name',
-            'non_returned_order_count',
-            'avg_non_returned_order_value'
-        ]
+        summarize = true
     )
 }}
