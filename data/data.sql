@@ -64,7 +64,7 @@ file_format = (
 ----------------------------------------------------------------------------------------------------
 
 -- snapshot demo
-create or replace transient table analytics.dbt_nreyes.mock_orders (
+create or replace transient table analytics.dbt_nreyes.snp_orders_snapshot (
     order_id integer,
     status varchar (100),
     created_at date,
@@ -72,7 +72,7 @@ create or replace transient table analytics.dbt_nreyes.mock_orders (
 );
 
 
-insert into analytics.dbt_nreyes.mock_orders (order_id, status, created_at, updated_at)
+insert into analytics.dbt_nreyes.snp_orders_snapshot (order_id, status, created_at, updated_at)
 values
     (1, 'Delivered', '2020-01-01', '2020-01-04'),
     (2, 'Shipped', '2020-01-02', '2020-01-04'),
@@ -81,11 +81,11 @@ values
 commit;
 
 
-select * from analytics.dbt_nreyes.mock_orders;
+select * from analytics.dbt_nreyes.snp_orders_snapshot;
 
 
 -- recreate demo table and insert new records
-create or replace transient table analytics.dbt_nreyes.mock_orders (
+create or replace transient table analytics.dbt_nreyes.snp_orders_snapshot (
     order_id integer,
     status varchar (100),
     created_at date,
@@ -93,7 +93,7 @@ create or replace transient table analytics.dbt_nreyes.mock_orders (
 );
 
 
-insert into analytics.dbt_nreyes.mock_orders (order_id, status, created_at, updated_at)
+insert into analytics.dbt_nreyes.snp_orders_snapshot (order_id, status, created_at, updated_at)
 values 
     (1, 'delivered', '2020-01-01', '2020-01-05'),
     (2, 'delivered', '2020-01-02', '2020-01-05'),
@@ -102,11 +102,11 @@ values
 commit;
 
 
-select * from analytics.dbt_nreyes.mock_orders;
+select * from analytics.dbt_nreyes.snp_orders_snapshot;
 
 
 -- snapshot demo prod env
-create or replace transient table analytics.dbt_prod.mock_orders (
+create or replace transient table analytics.dbt_prod.snp_orders_snapshot (
     order_id integer,
     status varchar (100),
     created_at date,
@@ -114,7 +114,7 @@ create or replace transient table analytics.dbt_prod.mock_orders (
 );
 
 
-insert into analytics.dbt_prod.mock_orders (order_id, status, created_at, updated_at)
+insert into analytics.dbt_prod.snp_orders_snapshot (order_id, status, created_at, updated_at)
 values
     (1, 'Delivered', '2020-01-01', '2020-01-04'),
     (2, 'Shipped', '2020-01-02', '2020-01-04'),
@@ -123,11 +123,11 @@ values
 commit;
 
 
-select * from analytics.dbt_prod.mock_orders;
+select * from analytics.dbt_prod.snp_orders_snapshot;
 
 
 -- recreate demo table and insert new records
-create or replace transient table analytics.dbt_prod.mock_orders (
+create or replace transient table analytics.dbt_prod.snp_orders_snapshot (
     order_id integer,
     status varchar (100),
     created_at date,
@@ -135,7 +135,7 @@ create or replace transient table analytics.dbt_prod.mock_orders (
 );
 
 
-insert into analytics.dbt_prod.mock_orders (order_id, status, created_at, updated_at)
+insert into analytics.dbt_prod.snp_orders_snapshot (order_id, status, created_at, updated_at)
 values 
     (1, 'delivered', '2020-01-01', '2020-01-05'),
     (2, 'delivered', '2020-01-02', '2020-01-05'),
@@ -144,7 +144,7 @@ values
 commit;
 
 
-select * from analytics.dbt_prod.mock_orders;
+select * from analytics.dbt_prod.snp_orders_snapshot;
 
 
 ----------------------------------------------------------------------------------------------------

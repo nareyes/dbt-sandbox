@@ -18,8 +18,11 @@
 with
 
 payments as (
+
     select * from {{ ref('stg_payments') }}
+
 ),
+
 
 {%- set method_sums = [] -%}
 
@@ -29,7 +32,9 @@ payments as (
 
 {%- endfor %}
 
+
 pivoted as (
+
     select
         order_id,
         {{ method_sums | join(',\n      ') }}
@@ -39,5 +44,4 @@ pivoted as (
     group by order_id
 )
 
-select * 
-from pivoted
+select * from pivoted

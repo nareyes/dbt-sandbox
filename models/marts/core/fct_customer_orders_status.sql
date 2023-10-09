@@ -4,6 +4,7 @@
     )
 }}
 
+
 with 
 
 customers as (
