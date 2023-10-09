@@ -4,6 +4,7 @@
     )
 }}
 
+
 with
 
 orders as (
@@ -27,7 +28,6 @@ order_totals as (
         sum(payment_amount) as order_value_dollars
     
     from payments
-
     group by order_id, payment_status
 
 ),
