@@ -7,8 +7,8 @@
 select 
     orders.id as order_id,
     orders.user_id as customer_id,
-    last_name as surname,
-    first_name as givenname,
+    last_name,
+    first_name,
     first_order_date,
     order_count,
     total_lifetime_value,
