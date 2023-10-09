@@ -44,8 +44,8 @@ final as (
     select
         order_id,
         customer_id,
-        first_name,
         last_name,
+        first_name,
         full_name,
         first_order_date,
         order_count,
