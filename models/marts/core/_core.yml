@@ -1,0 +1,59 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: customer record detail
+    columns:
+      - name: customer_id
+        description: primary key
+        tests:
+          - unique
+          - not_null
+          - dbt_utils.cardinality_equality:
+              field: customer_id
+              to: ref('stg_customers')
+      - name: first_order_date
+        description: null when a customer has not yet placed an order.
+      - name: lifetime_value
+        description: lifetime value of a customer based on orders purchased
+
+  - name: fct_orders
+    description: complete orders model including the amount associated with each order
+    tests:
+      - dbt_utils.expression_is_true:
+          expression: "payment_amount >= 0"
+    columns:
+      - name: order_id
+        description: primary key for orders
+        tests:
+          - unique
+          - not_null
+      - name: payment_amount
+        description: dollars spent per order
+        tests: 
+          - positive_column:
+              column_name: payment_amount
+          - dbt_expectations.expect_column_values_to_be_between: 
+              min_value: 0
+              row_condition: "order_id is not null" 
+              strictly: false
+          - dbt_expectations.expect_column_mean_to_be_between: 
+              min_value: 0
+              group_by: [customer_id] 
+              row_condition: "order_id is not null" # (optional)
+              strictly: false
+      - name: customer_id
+        tests:
+          - relationships:
+              to: ref('stg_customers')
+              field: customer_id
+          # this will fail, severity set to warn for demo purpose
+          # store results by running dbt test -s fct_orders --store-failure
+          - unique:
+              config:
+                where: "order_date > '2018-03-01'"
+                limit: 100
+                severity: warn
+                error_if: '>30'
+                store_failures: true
+                schema: test_failures
