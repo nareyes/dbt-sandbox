@@ -8,6 +8,28 @@ sources:
     tables:
       - name: payment
         description: payment records from stripe
+        columns:
+          - name: id
+            description: primary key for raw orders
+            tests:
+              - unique
+              - not_null
+          # - name: payment_method
+          #   tests:
+          #     - accepted_values:
+          #         values: ['credit_card', 'bank_transfer', 'gift_card', 'coupon']
+          #         config:
+          #           where: "status != 'fail"
+          #           severity: warn
+          # - name: payment_status
+          #   tests:
+          #     - accepted_values:
+          #         values: ['success', 'fail']
+          #         config:
+          #           severity: warn
+          #           limit: 10
+          #           store_failures: true
+          #           schema: test_failures
         loaded_at_field: _batched_at # exisiting field at source
         freshness: 
           warn_after:

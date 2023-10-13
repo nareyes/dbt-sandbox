@@ -1,3 +1,4 @@
+{# compare relations #}
 {% set old_etl_relation = ref('leg_customer_orders_status') -%}
 
 {% set dbt_relation = ref('fct_customer_orders_status') %}
